@@ -148,10 +148,140 @@
         linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
       background-size: 60px 60px;
     }
-    .hero-content {
+    /* Two-column hero layout */
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      width: 100%;
       position: relative;
       z-index: 2;
-      max-width: 700px;
+      will-change: transform, opacity;
+    }
+    .hero-content {
+      position: relative;
+    }
+    /* ─── HERO IMAGE ────────────────────────────────────────── */
+    .hero-image {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-image-frame {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 3 / 4;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--mid);
+      box-shadow:
+        0 40px 80px rgba(0,0,0,.5),
+        0 0 0 1px rgba(201,168,76,.1);
+    }
+    .hero-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    /* Placeholder shown when no real img src is set */
+    .hero-image-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      background: linear-gradient(160deg, var(--mid) 0%, #0d1a30 100%);
+    }
+    .hero-image-placeholder svg { opacity: .25; }
+    .hero-image-placeholder span {
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    /* Gold corner accent */
+    .hero-image-frame::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      z-index: 3;
+    }
+    /* Floating badge overlay */
+    .hero-image-badge {
+      position: absolute;
+      bottom: -18px;
+      left: -24px;
+      background: var(--deep);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 16px 48px rgba(0,0,0,.4);
+      z-index: 4;
+    }
+    .hero-badge-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold-lt));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .hero-badge-text strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .hero-badge-text span {
+      font-size: 12px;
+      color: var(--gray);
+    }
+    /* Second floating badge top-right */
+    .hero-image-badge-2 {
+      position: absolute;
+      top: 28px;
+      right: -20px;
+      background: rgba(13,21,38,.9);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.3);
+      z-index: 4;
+    }
+    .hero-badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4caf7d;
+      box-shadow: 0 0 8px rgba(76,175,125,.6);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 8px rgba(76,175,125,.6); }
+      50% { box-shadow: 0 0 16px rgba(76,175,125,.9); }
+    }
+    .hero-badge-2-text {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: .02em;
     }
     .hero-eyebrow {
       display: flex;
@@ -652,6 +782,10 @@
     }
 
     /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-layout { grid-template-columns: 1fr; gap: 48px; }
+      .hero-image { display: none; }
+    }
     @media (max-width: 900px) {
       .philosophy-layout { grid-template-columns: 1fr; }
       .philosophy-visual { height: 300px; }
@@ -692,40 +826,81 @@
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
     <div class="container">
-      <div class="hero-content">
-        <div class="hero-eyebrow">
-          <div class="hero-eyebrow-line"></div>
-          <span>Private Wealth Advisory</span>
-        </div>
-        <h1>Your wealth,<br /><em>thoughtfully</em><br />managed.</h1>
-        <p class="hero-sub">
-          Comprehensive financial strategies for discerning individuals — from
-          investment portfolios and life insurance to annuities and legacy
-          planning.
-        </p>
-        <div class="hero-actions">
-          <a href="#cta" class="btn-primary">
-            Begin Your Journey
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <a href="#services" class="btn-ghost">Explore Services</a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat">
-            <div class="stat-value"><sup>$</sup>4.2B</div>
-            <div class="stat-label">Assets Under Advisory</div>
+      <div class="hero-layout" id="heroLayout">
+
+        <!-- LEFT: Text content -->
+        <div class="hero-content">
+          <div class="hero-eyebrow">
+            <div class="hero-eyebrow-line"></div>
+            <span>Private Wealth Advisory</span>
           </div>
-          <div class="stat">
-            <div class="stat-value">1,800<sup>+</sup></div>
-            <div class="stat-label">High-Net-Worth Clients</div>
+          <h1>Your wealth,<br /><em>thoughtfully</em><br />managed.</h1>
+          <p class="hero-sub">
+            Comprehensive financial strategies for discerning individuals — from
+            investment portfolios and life insurance to annuities and legacy
+            planning.
+          </p>
+          <div class="hero-actions">
+            <a href="#cta" class="btn-primary">
+              Begin Your Journey
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="#services" class="btn-ghost">Explore Services</a>
           </div>
-          <div class="stat">
-            <div class="stat-value">22<sup>yr</sup></div>
-            <div class="stat-label">Years of Excellence</div>
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-value"><sup>$</sup>4.2B</div>
+              <div class="stat-label">Assets Under Advisory</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">1,800<sup>+</sup></div>
+              <div class="stat-label">High-Net-Worth Clients</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">22<sup>yr</sup></div>
+              <div class="stat-label">Years of Excellence</div>
+            </div>
           </div>
         </div>
+
+        <!-- RIGHT: Photo -->
+        <div class="hero-image">
+          <div class="hero-image-frame">
+            <!--
+              Replace the src below with your advisor/lifestyle photo.
+              Recommended: portrait-oriented image, 800×1067px or similar.
+            -->
+            <img
+              src=""
+              alt="Meridian Wealth advisor"
+              id="heroImg"
+            />
+            <!-- Placeholder shown when no image is loaded -->
+            <div class="hero-image-placeholder" id="heroPlaceholder">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="18" r="8" stroke="white" stroke-width="2"/>
+                <path d="M8 40c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span>Your photo here</span>
+            </div>
+          </div>
+          <!-- Floating badge — bottom left -->
+          <div class="hero-image-badge">
+            <div class="hero-badge-icon">🏆</div>
+            <div class="hero-badge-text">
+              <strong>Top-Rated Advisor</strong>
+              <span>Barron's & Forbes 2026</span>
+            </div>
+          </div>
+          <!-- Floating badge — top right -->
+          <div class="hero-image-badge-2">
+            <div class="hero-badge-dot"></div>
+            <span class="hero-badge-2-text">Fiduciary Standard</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1001,27 +1176,82 @@
     </div>
   </footer>
 
-  <!-- ── JS: Nav scroll + reveal ───────────────────────────── -->
+  <!-- ── JS ────────────────────────────────────────────────── -->
   <script>
-    // Sticky nav
+    /* ── Sticky nav ── */
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
-    });
 
-    // Scroll reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
+    /* ── Hero image placeholder ──
+       Show placeholder if no real image src is provided */
+    const heroImg = document.getElementById('heroImg');
+    const heroPlaceholder = document.getElementById('heroPlaceholder');
+    if (heroImg) {
+      if (!heroImg.src || heroImg.src === window.location.href) {
+        // No src set — keep placeholder visible
+        heroImg.style.display = 'none';
+      } else {
+        heroPlaceholder.style.display = 'none';
+        heroImg.onerror = () => {
+          heroImg.style.display = 'none';
+          heroPlaceholder.style.display = 'flex';
+        };
+      }
+    }
+
+    /* ── Apple-style hero scroll fade ──
+       As the user scrolls, the hero layout gently floats up,
+       scales down slightly, and fades out — exactly like Apple
+       product pages. Uses rAF for buttery 60 fps performance. */
+    const heroSection  = document.getElementById('hero');
+    const heroLayout   = document.getElementById('heroLayout');
+    let   rafPending   = false;
+
+    function applyHeroScroll() {
+      const scrollY   = window.scrollY;
+      const heroH     = heroSection.offsetHeight;
+
+      // Fade starts at 0, completes by 55% of hero height scrolled
+      const fadeStart = 0;
+      const fadeEnd   = heroH * 0.55;
+      const progress  = Math.max(0, Math.min(1, (scrollY - fadeStart) / (fadeEnd - fadeStart)));
+
+      // Ease-out curve for natural deceleration
+      const eased = 1 - Math.pow(1 - progress, 2);
+
+      const opacity    = Math.max(0, 1 - eased * 1.1);   // slightly overshoot to ensure full fade
+      const translateY = scrollY * 0.22;                  // gentle upward parallax
+      const scale      = 1 - eased * 0.04;               // very subtle shrink (1 → 0.96)
+
+      heroLayout.style.opacity   = opacity;
+      heroLayout.style.transform = `translateY(${translateY}px) scale(${scale})`;
+
+      rafPending = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      /* Sticky nav */
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+
+      /* Hero animation — throttled to one rAF per frame */
+      if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(applyHeroScroll);
+      }
+    }, { passive: true });
+
+    /* ── Scroll reveal (sections below hero) ── */
+    const reveals  = document.querySelectorAll('.reveal');
+    const revealOb = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          revealOb.unobserve(entry.target);
         }
       });
     }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
+    reveals.forEach(el => revealOb.observe(el));
 
-    // Stagger service cards
+    /* ── Stagger service cards ── */
     document.querySelectorAll('.service-card').forEach((card, i) => {
       card.style.transitionDelay = `${i * 80}ms`;
     });
