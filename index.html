@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Wealth — Private Financial Advisory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0a0f1e;
+      --deep:   #0d1526;
+      --mid:    #131e35;
+      --gold:   #c9a84c;
+      --gold-lt:#e8c97a;
+      --gold-dk:#a07830;
+      --white:  #ffffff;
+      --off-wh: #f5f3ef;
+      --gray:   #8a8f9e;
+      --border: rgba(201,168,76,0.18);
+      --radius: 18px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --transition: 0.35s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── Utility ───────────────────────────────────────────── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+    .gold { color: var(--gold); }
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,168,76,.1);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 5px 16px;
+      margin-bottom: 20px;
+    }
+
+    /* ─── NAV ───────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 0;
+      transition: background var(--transition), backdrop-filter var(--transition);
+    }
+    nav.scrolled {
+      background: rgba(10,15,30,0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold-lt));
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--navy);
+      font-weight: 600;
+    }
+    .logo-text {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: .01em;
+    }
+    .logo-text span { color: var(--gold); font-weight: 300; }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      letter-spacing: .02em;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--navy) !important;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      padding: 10px 22px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 60% 40%, rgba(201,168,76,.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 80% at 10% 80%, rgba(13,21,38,.9) 0%, transparent 60%),
+        linear-gradient(160deg, #0a0f1e 0%, #0d1526 50%, #111a2e 100%);
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow-line {
+      width: 40px; height: 1px;
+      background: var(--gold);
+    }
+    .hero-eyebrow span {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -.01em;
+      margin-bottom: 28px;
+      color: var(--white);
+    }
+    h1 em {
+      font-style: italic;
+      background: linear-gradient(120deg, var(--gold-lt), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,.6);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 44px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 15px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 8px 32px rgba(201,168,76,.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 48px rgba(201,168,76,.35);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 400;
+      padding: 15px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.2);
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,.06);
+    }
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 72px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat-value {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-value sup {
+      font-size: 16px;
+      color: var(--gold);
+      vertical-align: super;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--gray);
+      margin-top: 6px;
+      letter-spacing: .02em;
+    }
+
+    /* ─── SECTION COMMON ────────────────────────────────────── */
+    section { padding: 120px 0; }
+    .section-header { text-align: center; margin-bottom: 72px; }
+    h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(30px, 3.5vw, 48px);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--gray);
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ─── SERVICES ──────────────────────────────────────────── */
+    #services { background: var(--deep); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 64px rgba(0,0,0,.4);
+      border-color: rgba(201,168,76,.35);
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 52px; height: 52px;
+      background: rgba(201,168,76,.1);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+      font-size: 22px;
+    }
+    .service-card h3 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.75;
+    }
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 24px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: .03em;
+      transition: gap var(--transition);
+    }
+    .service-link:hover { gap: 10px; }
+
+    /* ─── PHILOSOPHY ────────────────────────────────────────── */
+    #philosophy {
+      background: var(--navy);
+      position: relative;
+    }
+    .philosophy-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .philosophy-visual {
+      position: relative;
+      height: 440px;
+    }
+    .phil-card {
+      position: absolute;
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+    }
+    .phil-card-main {
+      width: 320px;
+      top: 0; left: 0;
+      z-index: 2;
+    }
+    .phil-card-secondary {
+      width: 270px;
+      bottom: 0; right: 0;
+      z-index: 3;
+      background: linear-gradient(135deg, rgba(19,30,53,1), rgba(13,21,38,1));
+    }
+    .phil-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 80px;
+      margin: 16px 0 8px;
+    }
+    .bar {
+      flex: 1;
+      background: var(--border);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+    .bar-fill {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(180deg, var(--gold-lt), var(--gold-dk));
+      border-radius: 4px;
+      transition: height 1.5s ease;
+    }
+    .phil-num {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      color: var(--gold);
+    }
+    .phil-num-label { font-size: 13px; color: var(--gray); margin-top: 4px; }
+    .philosophy-text .tag { margin-bottom: 24px; }
+    .philosophy-text h2 { text-align: left; margin-bottom: 20px; }
+    .philosophy-text p {
+      font-size: 16px;
+      color: rgba(255,255,255,.6);
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+    .pillars {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .pillar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .pillar-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .pillar span {
+      font-size: 15px;
+      color: rgba(255,255,255,.8);
+      font-weight: 400;
+    }
+
+    /* ─── PROCESS ───────────────────────────────────────────── */
+    #process { background: var(--deep); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .step {
+      background: var(--mid);
+      padding: 48px 36px;
+      position: relative;
+      transition: background var(--transition);
+    }
+    .step:hover { background: rgba(19,30,53,.8); }
+    .step-num {
+      font-family: var(--font-serif);
+      font-size: 52px;
+      font-weight: 500;
+      color: rgba(201,168,76,.15);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .step h3 {
+      font-size: 17px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+    .step p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+    /* ─── TRUST ─────────────────────────────────────────────── */
+    #trust { background: var(--navy); }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .trust-item {
+      text-align: center;
+      padding: 48px 32px;
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .trust-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+    .trust-item h4 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .trust-item p { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+    /* ─── TESTIMONIAL ───────────────────────────────────────── */
+    #testimonial {
+      background: linear-gradient(135deg, #0d1526 0%, #111a2e 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #testimonial::before {
+      content: '\201C';
+      position: absolute;
+      top: -40px; left: 60px;
+      font-family: var(--font-serif);
+      font-size: 400px;
+      color: rgba(201,168,76,.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .testimonial-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .stars { color: var(--gold); font-size: 18px; letter-spacing: 4px; margin-bottom: 28px; }
+    blockquote {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.8vw, 32px);
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--white);
+      font-style: italic;
+      margin-bottom: 36px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .author-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dk), var(--gold-lt));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--navy);
+    }
+    .author-info strong { display: block; font-size: 15px; font-weight: 500; }
+    .author-info span { font-size: 13px; color: var(--gray); }
+
+    /* ─── CTA ───────────────────────────────────────────────── */
+    #cta {
+      background: var(--deep);
+      text-align: center;
+    }
+    .cta-card {
+      background: linear-gradient(135deg, rgba(201,168,76,.06) 0%, rgba(201,168,76,.02) 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 80px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 20%; right: 20%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .cta-card h2 { margin-bottom: 16px; }
+    .cta-card p {
+      font-size: 17px;
+      color: var(--gray);
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+    }
+    .cta-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .cta-note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(255,255,255,.3);
+      letter-spacing: .04em;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+      padding: 72px 0 36px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 60px;
+    }
+    .footer-brand p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+    .footer-col h5 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a {
+      font-size: 14px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: gap;
+      gap: 16px;
+    }
+    .footer-bottom p { font-size: 13px; color: rgba(255,255,255,.25); }
+    .footer-badges { display: flex; gap: 16px; }
+    .badge {
+      font-size: 11px;
+      color: rgba(255,255,255,.3);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 4px;
+      padding: 4px 10px;
+      letter-spacing: .04em;
+    }
+
+    /* ─── Scroll animation ──────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .philosophy-layout { grid-template-columns: 1fr; }
+      .philosophy-visual { height: 300px; }
+      .trust-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 80px 0; }
+      .hero-stats { gap: 32px; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .cta-card { padding: 48px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-mark">M</div>
+        <span class="logo-text">Meridian <span>Wealth</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#philosophy">Our Approach</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#trust">Why Us</a></li>
+      </ul>
+      <a href="#cta" class="nav-cta">Schedule a Consultation</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-line"></div>
+          <span>Private Wealth Advisory</span>
+        </div>
+        <h1>Your wealth,<br /><em>thoughtfully</em><br />managed.</h1>
+        <p class="hero-sub">
+          Comprehensive financial strategies for discerning individuals — from
+          investment portfolios and life insurance to annuities and legacy
+          planning.
+        </p>
+        <div class="hero-actions">
+          <a href="#cta" class="btn-primary">
+            Begin Your Journey
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#services" class="btn-ghost">Explore Services</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-value"><sup>$</sup>4.2B</div>
+            <div class="stat-label">Assets Under Advisory</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">1,800<sup>+</sup></div>
+            <div class="stat-label">High-Net-Worth Clients</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">22<sup>yr</sup></div>
+            <div class="stat-label">Years of Excellence</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ──────────────────────────────────────────── -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">What We Offer</div>
+        <h2>Comprehensive <span class="gold">Financial Services</span></h2>
+        <p class="section-sub">
+          Every strategy we build is bespoke — designed around your life goals,
+          risk profile, and generational vision.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">📈</div>
+          <h3>Investment Management</h3>
+          <p>Actively managed portfolios spanning equities, fixed income, private equity, and alternative assets — calibrated to your objectives and tolerance.</p>
+          <a href="#cta" class="service-link">Learn more →</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🛡️</div>
+          <h3>Life Insurance</h3>
+          <p>Whole life, term, and universal policies structured to protect your family, fund your estate, and create tax-advantaged wealth transfer vehicles.</p>
+          <a href="#cta" class="service-link">Learn more →</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">⚖️</div>
+          <h3>Annuity Solutions</h3>
+          <p>Fixed, variable, and indexed annuities designed to deliver guaranteed income streams and shield your retirement from market volatility.</p>
+          <a href="#cta" class="service-link">Learn more →</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🏛️</div>
+          <h3>Estate & Legacy Planning</h3>
+          <p>Sophisticated structures — trusts, gifting strategies, family limited partnerships — that preserve and transfer wealth across generations.</p>
+          <a href="#cta" class="service-link">Learn more →</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📊</div>
+          <h3>Retirement Planning</h3>
+          <p>Holistic retirement blueprints: 401(k) optimization, IRA strategies, Social Security timing, and income-distribution planning for a secure future.</p>
+          <a href="#cta" class="service-link">Learn more →</a>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">💼</div>
+          <h3>Business Owner Services</h3>
+          <p>Executive benefits, buy-sell agreements, key-person insurance, and succession planning for entrepreneurs and closely held businesses.</p>
+          <a href="#cta" class="service-link">Learn more →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PHILOSOPHY ────────────────────────────────────────── -->
+  <section id="philosophy">
+    <div class="container">
+      <div class="philosophy-layout">
+        <div class="philosophy-visual reveal">
+          <div class="phil-card phil-card-main">
+            <div style="font-size:13px;color:var(--gray);margin-bottom:8px;">Portfolio Performance — 5Y</div>
+            <div class="phil-chart">
+              <div class="bar"><div class="bar-fill" style="height:35%"></div></div>
+              <div class="bar"><div class="bar-fill" style="height:52%"></div></div>
+              <div class="bar"><div class="bar-fill" style="height:44%"></div></div>
+              <div class="bar"><div class="bar-fill" style="height:68%"></div></div>
+              <div class="bar"><div class="bar-fill" style="height:58%"></div></div>
+              <div class="bar"><div class="bar-fill" style="height:75%"></div></div>
+              <div class="bar"><div class="bar-fill" style="height:62%"></div></div>
+              <div class="bar"><div class="bar-fill" style="height:88%"></div></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-end">
+              <div>
+                <div class="phil-num">+18.4%</div>
+                <div class="phil-num-label">Avg. Annual Return</div>
+              </div>
+              <div style="font-size:12px;color:#4caf7d;background:rgba(76,175,125,.12);border:1px solid rgba(76,175,125,.2);border-radius:50px;padding:4px 12px">▲ Outperforming S&P</div>
+            </div>
+          </div>
+          <div class="phil-card phil-card-secondary">
+            <div style="font-size:13px;color:var(--gray);margin-bottom:12px;">Client Net Worth Growth</div>
+            <div class="phil-num" style="font-size:26px;">$2.8M → $4.6M</div>
+            <div class="phil-num-label">Avg. client 7-year trajectory</div>
+          </div>
+        </div>
+        <div class="philosophy-text reveal">
+          <div class="tag">Our Philosophy</div>
+          <h2>Precision over<br /><em>prediction.</em></h2>
+          <p>We believe lasting wealth is built not through speculation, but through disciplined strategy, tax-efficient structures, and unwavering alignment with your goals.</p>
+          <p>Our advisors hold CFP®, ChFC®, and CFA designations — and more importantly, they listen before they advise.</p>
+          <div class="pillars">
+            <div class="pillar"><div class="pillar-dot"></div><span>Fiduciary-only — your interest is the only interest</span></div>
+            <div class="pillar"><div class="pillar-dot"></div><span>Fee-transparent, conflict-free advisory</span></div>
+            <div class="pillar"><div class="pillar-dot"></div><span>Institutional-grade research, personal service</span></div>
+            <div class="pillar"><div class="pillar-dot"></div><span>Integrated tax, legal & insurance coordination</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROCESS ───────────────────────────────────────────── -->
+  <section id="process">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">How It Works</div>
+        <h2>A clear path to <span class="gold">financial clarity</span></h2>
+        <p class="section-sub">Four focused conversations that lead to a lifetime of confident decisions.</p>
+      </div>
+      <div class="steps reveal">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Discovery</h3>
+          <p>We explore your goals, current assets, risk tolerance, and life milestones in a complimentary 60-minute conversation.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Blueprint</h3>
+          <p>Our team builds a comprehensive financial plan — investment strategy, insurance analysis, and tax optimization — tailored entirely to you.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Implementation</h3>
+          <p>We execute with precision: opening accounts, structuring policies, allocating assets, and coordinating with your CPA and attorney.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Partnership</h3>
+          <p>Quarterly reviews, proactive rebalancing, and 24/7 advisor access ensure your strategy evolves as your life does.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TRUST ─────────────────────────────────────────────── -->
+  <section id="trust">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="tag">Why Meridian</div>
+        <h2>Built on trust.<br /><span class="gold">Measured by outcomes.</span></h2>
+      </div>
+      <div class="trust-grid reveal">
+        <div class="trust-item">
+          <div class="trust-icon">🏆</div>
+          <h4>Award-Winning Advisors</h4>
+          <p>Consistently recognized by Barron's and Forbes as top financial advisors in the nation.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🔒</div>
+          <h4>Fiduciary Standard</h4>
+          <p>We are legally and ethically bound to act in your best interest — no commissions, no conflicts.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🌐</div>
+          <h4>Custodian Independence</h4>
+          <p>Your assets held at Schwab or Fidelity — we manage, you own, always fully accessible to you.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📋</div>
+          <h4>Regulatory Compliance</h4>
+          <p>SEC-registered RIA with a clean compliance record. Full ADV disclosure available on request.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🤝</div>
+          <h4>Dedicated Advisor Team</h4>
+          <p>One lead advisor and two specialists assigned to you — not a call center, a relationship.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📱</div>
+          <h4>Real-Time Reporting</h4>
+          <p>24/7 access to your full financial picture via our secure client portal and mobile app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIAL ───────────────────────────────────────── -->
+  <section id="testimonial">
+    <div class="container">
+      <div class="testimonial-inner reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>
+          "Meridian didn't just manage our money — they gave us a roadmap. We
+          retired two years earlier than planned, our children's trusts are
+          structured beautifully, and I sleep better knowing every dollar has
+          a purpose."
+        </blockquote>
+        <div class="testimonial-author">
+          <div class="author-avatar">R</div>
+          <div class="author-info">
+            <strong>Robert & Catherine H.</strong>
+            <span>Client since 2011 · Retired Executives, Austin TX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────── -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-card reveal">
+        <div class="tag">Take the First Step</div>
+        <h2>Your complimentary<br /><span class="gold">strategy session awaits.</span></h2>
+        <p>No obligations. No jargon. Just a candid conversation about where you are and where you want to be.</p>
+        <div class="cta-actions">
+          <a href="#" class="btn-primary">
+            Schedule Your Consultation
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="tel:+18005550100" class="btn-ghost">
+            📞 1-800-555-0100
+          </a>
+        </div>
+        <p class="cta-note">FINRA/SIPC MEMBER &nbsp;·&nbsp; SEC REGISTERED &nbsp;·&nbsp; FIDUCIARY STANDARD</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <div class="logo-mark">M</div>
+            <span class="logo-text">Meridian <span>Wealth</span></span>
+          </a>
+          <p>Private financial advisory for those who believe wealth is a tool — not just a goal. Serving high-net-worth individuals and families since 2002.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#">Investment Management</a></li>
+            <li><a href="#">Life Insurance</a></li>
+            <li><a href="#">Annuities</a></li>
+            <li><a href="#">Estate Planning</a></li>
+            <li><a href="#">Retirement Planning</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Insights & News</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">ADV Disclosure</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="#">Schedule a Call</a></li>
+            <li><a href="#">Client Portal</a></li>
+            <li><a href="#">hello@meridianwealth.com</a></li>
+            <li><a href="#">1-800-555-0100</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Meridian Wealth Advisory LLC. All rights reserved. Investment advisory services offered through Meridian Wealth, a registered investment adviser. Past performance is not indicative of future results.</p>
+        <div class="footer-badges">
+          <span class="badge">FINRA/SIPC</span>
+          <span class="badge">SEC RIA</span>
+          <span class="badge">CFP®</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── JS: Nav scroll + reveal ───────────────────────────── -->
+  <script>
+    // Sticky nav
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Stagger service cards
+    document.querySelectorAll('.service-card').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 80}ms`;
+    });
+  </script>
+
+</body>
+</html>
