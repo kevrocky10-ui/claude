@@ -109,7 +109,7 @@ body {
   font-size: 0.55rem;
   transition: transform 0.3s ease;
 }
-/* ── SEARCH BUTTON (desktop) ── */
+/* ── SEARCH BUTTON (desktop + mobile header bar) ── */
 .cwf-search-btn {
   display: flex;
   align-items: center;
@@ -123,6 +123,8 @@ body {
   color: #b91c1c;
   font-size: 0.95rem;
   cursor: pointer;
+  position: relative;
+  z-index: 1001;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .cwf-search-btn:hover {
@@ -263,48 +265,6 @@ body {
   color: #666;
 }
 
-/* ── MOBILE SEARCH IN PANEL ── */
-.cwf-mp-search {
-  padding: 0.75rem 1.5rem 0.25rem;
-}
-.cwf-mp-search-form {
-  display: flex;
-  gap: 8px;
-}
-.cwf-mp-search-input {
-  flex: 1;
-  padding: 12px 16px;
-  border: 2px solid #e5e5e5;
-  border-radius: 12px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #1a1a1a;
-  outline: none;
-  transition: border-color 0.3s ease;
-}
-.cwf-mp-search-input::placeholder {
-  color: #bbb;
-}
-.cwf-mp-search-input:focus {
-  border-color: #b91c1c;
-}
-.cwf-mp-search-submit {
-  width: 44px;
-  height: 44px;
-  background: #b91c1c;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-.cwf-mp-search-submit:hover {
-  background: #991b1b;
-}
-
 /* ── HAMBURGER LABEL (pure CSS) ── */
 .cwf-burger {
   display: none;
@@ -343,15 +303,18 @@ body {
 .cwf-burger-line::before { top: -9px; }
 .cwf-burger-line::after { top: 9px; }
 /* Animate burger → X when checked */
-#cwf-menu-state:checked ~ .cwf-header .cwf-burger .cwf-burger-line {
+#cwf-menu-state:checked ~ .cwf-header .cwf-burger .cwf-burger-line,
+#cwf-menu-state:checked ~ .cwf-header .cwf-header-right .cwf-burger .cwf-burger-line {
   background: transparent;
 }
-#cwf-menu-state:checked ~ .cwf-header .cwf-burger .cwf-burger-line::before {
+#cwf-menu-state:checked ~ .cwf-header .cwf-burger .cwf-burger-line::before,
+#cwf-menu-state:checked ~ .cwf-header .cwf-header-right .cwf-burger .cwf-burger-line::before {
   top: 0;
   transform: rotate(45deg);
   background: #b91c1c;
 }
-#cwf-menu-state:checked ~ .cwf-header .cwf-burger .cwf-burger-line::after {
+#cwf-menu-state:checked ~ .cwf-header .cwf-burger .cwf-burger-line::after,
+#cwf-menu-state:checked ~ .cwf-header .cwf-header-right .cwf-burger .cwf-burger-line::after {
   top: 0;
   transform: rotate(-45deg);
   background: #b91c1c;
@@ -790,10 +753,20 @@ body {
 /* ══════════════════════════════════════
    RESPONSIVE
    ══════════════════════════════════════ */
+/* ── MOBILE HEADER RIGHT GROUP ── */
+.cwf-header-right {
+  display: none;
+  align-items: center;
+  gap: 6px;
+}
 @media (max-width: 850px) {
   .cwf-nav { display: none; }
-  .cwf-search-btn { display: none; }
-  .cwf-burger { display: flex; }
+  /* Hide the standalone desktop search button */
+  .cwf-header-inner > .cwf-search-btn { display: none; }
+  /* Show the mobile right group with search + hamburger */
+  .cwf-header-right { display: flex; }
+  .cwf-header-right .cwf-search-btn { margin-left: 0; width: 36px; height: 36px; font-size: 0.85rem; }
+  .cwf-header-right .cwf-burger { display: flex; width: 44px; height: 44px; }
   .cwf-logo-img { height: 40px !important; max-height: 40px !important; max-width: 140px !important; }
   .cwf-header-inner { height: 60px; padding: 0 1rem; }
 }
@@ -878,14 +851,19 @@ body {
         <a href="https://cwfeats.com/contact/" class="cwf-nav-link">Contact</a>
       </div>
     </nav>
-    <!-- SEARCH BUTTON (desktop) -->
+    <!-- SEARCH BUTTON (desktop — always visible) -->
     <button class="cwf-search-btn" onclick="document.getElementById('cwf-search-overlay').classList.add('active'); document.getElementById('cwf-search-field').focus();" aria-label="Search recipes">
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
-    <!-- HAMBURGER (label for checkbox, no JS) -->
-    <label class="cwf-burger" for="cwf-menu-state">
-      <span class="cwf-burger-line"></span>
-    </label>
+    <!-- MOBILE RIGHT GROUP: search + hamburger -->
+    <div class="cwf-header-right">
+      <button class="cwf-search-btn" onclick="document.getElementById('cwf-search-overlay').classList.add('active'); document.getElementById('cwf-search-field').focus();" aria-label="Search recipes">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <label class="cwf-burger" for="cwf-menu-state">
+        <span class="cwf-burger-line"></span>
+      </label>
+    </div>
   </div>
 </header>
 <!-- ═══════════════ SEARCH OVERLAY ═══════════════ -->
@@ -912,13 +890,6 @@ body {
   <div class="cwf-mp-header">
     <img src="https://cwfeats.com/wp-content/uploads/2022/12/cooking-w-fire-white-background-2.png" alt="CWF" class="cwf-mp-logo">
     <label class="cwf-mp-close" for="cwf-menu-state"><i class="fa-solid fa-xmark"></i></label>
-  </div>
-  <!-- MOBILE SEARCH BAR -->
-  <div class="cwf-mp-search">
-    <form class="cwf-mp-search-form" action="https://cwfeats.com/" method="get">
-      <input type="text" name="s" class="cwf-mp-search-input" placeholder="Search recipes..." autocomplete="off" required>
-      <button type="submit" class="cwf-mp-search-submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
-    </form>
   </div>
   <!-- Nav links -->
   <nav class="cwf-mp-nav">
