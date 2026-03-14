@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CWF Eats - Header</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f5f5f5;
+}
+/* ══════════════════════════════════════
+   MASTER MOBILE CHECKBOX (hidden)
+   ══════════════════════════════════════ */
+#cwf-menu-state {
+  display: none;
+}
+/* ══════════════════════════════════════
+   HEADER BAR
+   ══════════════════════════════════════ */
+.cwf-header {
+  background: #fff;
+  border-bottom: 3px solid #b91c1c;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+.cwf-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 72px;
+}
+/* ── LOGO ── */
+.cwf-logo {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1001;
+}
+.cwf-logo-img {
+  height: 52px !important;
+  max-height: 52px !important;
+  max-width: 180px !important;
+  width: auto !important;
+  display: block;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+.cwf-logo:hover .cwf-logo-img {
+  opacity: 0.85;
+}
+/* ── DESKTOP NAV ── */
+.cwf-nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 100%;
+}
+.cwf-nav-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.cwf-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 1.5rem;
+  height: 100%;
+  text-decoration: none;
+  color: #b91c1c !important;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: color 0.25s ease, background 0.25s ease;
+  position: relative;
+  cursor: pointer;
+}
+.cwf-nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: #b91c1c;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cwf-nav-link:hover {
+  color: #1a1a1a !important;
+}
+.cwf-nav-link:hover::after {
+  width: 100%;
+}
+.cwf-nav-link i.fa-chevron-down {
+  font-size: 0.55rem;
+  transition: transform 0.3s ease;
+}
+/* ── SEARCH BUTTON (desktop) ── */
+.cwf-search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 0.75rem;
+  background: none;
+  border: 2px solid #b91c1c;
+  border-radius: 10px;
+  color: #b91c1c;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cwf-search-btn:hover {
+  background: #b91c1c;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(185,28,28,0.3);
+}
+
+/* ══════════════════════════════════════
+   SEARCH OVERLAY
+   ══════════════════════════════════════ */
+.cwf-search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.35s ease;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
+}
+.cwf-search-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.cwf-search-container {
+  width: 90%;
+  max-width: 640px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+  transform: translateY(-20px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cwf-search-overlay.active .cwf-search-container {
+  transform: translateY(0) scale(1);
+}
+.cwf-search-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.cwf-search-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #1a1a1a;
+}
+.cwf-search-title span {
+  color: #b91c1c;
+}
+.cwf-search-close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.cwf-search-close:hover {
+  background: rgba(185,28,28,0.08);
+  color: #b91c1c;
+}
+.cwf-search-form {
+  display: flex;
+  gap: 10px;
+}
+.cwf-search-input {
+  flex: 1;
+  padding: 14px 20px;
+  border: 2px solid #e5e5e5;
+  border-radius: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.cwf-search-input::placeholder {
+  color: #bbb;
+  font-weight: 400;
+}
+.cwf-search-input:focus {
+  border-color: #b91c1c;
+  box-shadow: 0 0 0 4px rgba(185,28,28,0.1);
+}
+.cwf-search-submit {
+  padding: 14px 24px;
+  background: #b91c1c;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cwf-search-submit:hover {
+  background: #991b1b;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(185,28,28,0.35);
+}
+.cwf-search-hint {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: #aaa;
+  font-weight: 500;
+}
+.cwf-search-hint kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #666;
+}
+
+/* ── MOBILE SEARCH IN PANEL ── */
+.cwf-mp-search {
+  padding: 0.75rem 1.5rem 0.25rem;
+}
+.cwf-mp-search-form {
+  display: flex;
+  gap: 8px;
+}
+.cwf-mp-search-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.cwf-mp-search-input::placeholder {
+  color: #bbb;
+}
+.cwf-mp-search-input:focus {
+  border-color: #b91c1c;
+}
+.cwf-mp-search-submit {
+  width: 44px;
+  height: 44px;
+  background: #b91c1c;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+.cwf-mp-search-submit:hover {
+  background: #991b1b;
+}
+
+/* ── HAMBURGER LABEL (pure CSS) ── */
+.cwf-burger {
+  display: none;
+  width: 52px;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 1001;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+.cwf-burger:hover {
+  background: rgba(185,28,28,0.06);
+}
+.cwf-burger-line,
+.cwf-burger-line::before,
+.cwf-burger-line::after {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background: #1a1a1a;
+  border-radius: 2px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cwf-burger-line {
+  position: relative;
+}
+.cwf-burger-line::before,
+.cwf-burger-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.cwf-burger-line::before { top: -9px; }
+.cwf-burger-line::after { top: 9px; }
+/* Animate burger → X when checked */
+#cwf-menu-state:checked ~ .cwf-header .cwf-burger .cwf-burger-line {
+  background: transparent;
+}
+#cwf-menu-state:checked ~ .cwf-header .cwf-burger .cwf-burger-line::before {
+  top: 0;
+  transform: rotate(45deg);
+  background: #b91c1c;
+}
+#cwf-menu-state:checked ~ .cwf-header .cwf-burger .cwf-burger-line::after {
+  top: 0;
+  transform: rotate(-45deg);
+  background: #b91c1c;
+}
+/* ══════════════════════════════════════
+   MEGA DROPDOWN (desktop hover)
+   ══════════════════════════════════════ */
+.cwf-mega {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 680px;
+  background: #b91c1c;
+  border-radius: 20px;
+  padding: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.25),
+    0 0 0 1px rgba(0,0,0,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  z-index: 999;
+}
+.cwf-mega::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #b91c1c;
+}
+/* invisible bridge so mouse can travel from nav to dropdown */
+.cwf-mega::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  width: 100%;
+  height: 12px;
+}
+.cwf-nav-item:hover .cwf-mega {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.cwf-nav-item:hover .cwf-nav-link i.fa-chevron-down {
+  transform: rotate(180deg);
+}
+/* ── CATEGORY GRID ── */
+.cwf-mega-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+.cwf-mega-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1rem 1.25rem;
+  background: rgba(0,0,0,0.15);
+  border: 1.5px solid rgba(205,163,96,0.5);
+  border-radius: 14px;
+  text-decoration: none;
+  color: #fff !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+.cwf-mega-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.cwf-mega-card:hover {
+  background: rgba(0,0,0,0.3);
+  border-color: rgba(205,163,96,0.85);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+.cwf-mega-card:hover::before {
+  opacity: 1;
+}
+.cwf-mega-card:hover .cwf-mega-card-icon {
+  transform: scale(1.1);
+}
+.cwf-mega-card-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(205,163,96,0.35);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #cda360;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+.cwf-mega-card-text {
+  position: relative;
+  z-index: 1;
+}
+.cwf-mega-card-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff !important;
+}
+.cwf-mega-card-sub {
+  display: block;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5) !important;
+  font-weight: 500;
+  margin-top: 2px;
+}
+/* ── SEE ALL BUTTON ── */
+.cwf-mega-cta {
+  display: block;
+  text-align: center;
+  padding: 14px 24px;
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cwf-mega-cta:hover {
+  background: #1a1a1a;
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.cwf-mega-cta i {
+  margin-left: 8px;
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+.cwf-mega-cta:hover i {
+  transform: translateX(4px);
+}
+/* ══════════════════════════════════════
+   MOBILE FULLSCREEN OVERLAY
+   ══════════════════════════════════════ */
+.cwf-mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.35s ease;
+}
+.cwf-mobile-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 340px;
+  max-width: 85vw;
+  height: 100%;
+  background: #fff;
+  z-index: 999;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+}
+/* Show mobile menu when checkbox checked */
+#cwf-menu-state:checked ~ .cwf-mobile-overlay {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1001 !important;
+}
+#cwf-menu-state:checked ~ .cwf-mobile-panel {
+  transform: translateX(0);
+  z-index: 1002 !important;
+}
+/* ── MOBILE PANEL HEADER ── */
+.cwf-mp-header {
+  padding: 1rem 1.5rem;
+  border-bottom: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.cwf-mp-close {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  color: #b91c1c;
+  transition: all 0.3s ease;
+}
+.cwf-mp-close:hover {
+  background: rgba(185,28,28,0.08);
+}
+.cwf-mp-logo {
+  height: 28px !important;
+  max-height: 28px !important;
+  max-width: 100px !important;
+  width: auto !important;
+  object-fit: contain;
+}
+.cwf-mp-header-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #1a1a1a;
+}
+.cwf-mp-header-text span {
+  color: #b91c1c;
+}
+/* ── MOBILE NAV LINKS ── */
+.cwf-mp-nav {
+  padding: 0.5rem 0 1rem;
+}
+.cwf-mp-link,
+.cwf-mp-link:link,
+.cwf-mp-link:visited {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 1.5rem;
+  text-decoration: none;
+  color: #1a1a1a !important;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #f3f3f3;
+  transition: all 0.25s ease;
+}
+.cwf-mp-link:hover {
+  color: #b91c1c;
+  background: rgba(185,28,28,0.03);
+  padding-left: 1.75rem;
+}
+.cwf-mp-link i {
+  width: 20px;
+  text-align: center;
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+/* ── MOBILE RECIPES SECTION ── */
+.cwf-mp-recipes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 1.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f3f3;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+.cwf-mp-recipes-header:hover {
+  color: #b91c1c;
+  background: rgba(185,28,28,0.03);
+}
+.cwf-mp-recipes-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #1a1a1a !important;
+}
+.cwf-mp-recipes-left i {
+  width: 20px;
+  text-align: center;
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+.cwf-mp-recipes-arrow {
+  width: 28px;
+  height: 28px;
+  background: rgba(185,28,28,0.06);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cwf-mp-recipes-arrow i {
+  font-size: 0.55rem;
+  color: #b91c1c;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Recipes sub-toggle */
+#cwf-mobile-recipes {
+  display: none;
+}
+#cwf-mobile-recipes:checked ~ .cwf-mp-recipes-grid {
+  max-height: 500px;
+  padding: 12px 1.5rem 16px;
+}
+#cwf-mobile-recipes:checked ~ .cwf-mp-recipes-header .cwf-mp-recipes-arrow {
+  background: #b91c1c;
+}
+#cwf-mobile-recipes:checked ~ .cwf-mp-recipes-header .cwf-mp-recipes-arrow i {
+  color: #fff;
+  transform: rotate(180deg);
+}
+.cwf-mp-recipes-grid {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 1.5rem;
+  background: #fafafa;
+  border-bottom: 1px solid #f3f3f3;
+}
+.cwf-mp-cat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: #b91c1c;
+  border: 1.5px solid rgba(205,163,96,0.4);
+  border-radius: 12px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cwf-mp-cat:hover {
+  background: #991b1b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  border-color: rgba(205,163,96,0.7);
+}
+.cwf-mp-cat i {
+  color: #cda360;
+  font-size: 0.9rem;
+  width: 20px;
+  text-align: center;
+}
+/* ── MOBILE SEE ALL ── */
+.cwf-mp-see-all,
+.cwf-mp-see-all:link,
+.cwf-mp-see-all:visited,
+.cwf-mp-see-all:active {
+  display: block;
+  margin: 0 1.5rem 1rem;
+  padding: 14px;
+  background: #1a1a1a !important;
+  color: #fff !important;
+  text-align: center;
+  text-decoration: none !important;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+.cwf-mp-see-all:hover {
+  background: #b91c1c !important;
+  color: #fff !important;
+}
+.cwf-mp-see-all i {
+  margin-left: 8px;
+  font-size: 0.65rem;
+  color: #fff !important;
+}
+/* ── MOBILE PANEL FOOTER ── */
+.cwf-mp-footer {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+}
+.cwf-mp-social {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.cwf-mp-social a {
+  width: 44px;
+  height: 44px;
+  background: #1a1a1a;
+  color: #fff !important;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+}
+.cwf-mp-social a:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+}
+.cwf-mp-tagline {
+  font-size: 0.72rem;
+  color: #999;
+  font-weight: 500;
+}
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media (max-width: 850px) {
+  .cwf-nav { display: none; }
+  .cwf-search-btn { display: none; }
+  .cwf-burger { display: flex; }
+  .cwf-logo-img { height: 40px !important; max-height: 40px !important; max-width: 140px !important; }
+  .cwf-header-inner { height: 60px; padding: 0 1rem; }
+}
+@media (min-width: 851px) {
+  .cwf-mobile-overlay,
+  .cwf-mobile-panel { display: none !important; }
+}
+</style>
+</head>
+<body>
+<!-- Hidden checkbox drives the entire mobile menu (no JS) -->
+<input type="checkbox" id="cwf-menu-state">
+<!-- ═══════════════ HEADER START ═══════════════ -->
+<header class="cwf-header">
+  <div class="cwf-header-inner">
+    <!-- LOGO -->
+    <a href="https://cwfeats.com" class="cwf-logo">
+      <img src="https://cwfeats.com/wp-content/uploads/2022/12/cooking-w-fire-white-background-2.png" alt="Cooking With Fire" class="cwf-logo-img">
+    </a>
+    <!-- DESKTOP NAV -->
+    <nav class="cwf-nav">
+      <div class="cwf-nav-item">
+        <a href="https://cwfeats.com" class="cwf-nav-link">Home</a>
+      </div>
+      <div class="cwf-nav-item">
+        <span class="cwf-nav-link">Recipes <i class="fa-solid fa-chevron-down"></i></span>
+        <!-- MEGA DROPDOWN -->
+        <div class="cwf-mega">
+          <div class="cwf-mega-grid">
+            <a href="https://cwfeats.com/beef-recipes/" class="cwf-mega-card">
+              <div class="cwf-mega-card-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+              <div class="cwf-mega-card-text">
+                <span class="cwf-mega-card-label">Beef</span>
+                <span class="cwf-mega-card-sub">Steaks, Brisket &amp; More</span>
+              </div>
+            </a>
+            <a href="https://cwfeats.com/pork-4/" class="cwf-mega-card">
+              <div class="cwf-mega-card-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+              <div class="cwf-mega-card-text">
+                <span class="cwf-mega-card-label">Pork</span>
+                <span class="cwf-mega-card-sub">Ribs, Chops &amp; Pulled</span>
+              </div>
+            </a>
+            <a href="https://cwfeats.com/chicken-recipes/" class="cwf-mega-card">
+              <div class="cwf-mega-card-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+              <div class="cwf-mega-card-text">
+                <span class="cwf-mega-card-label">Chicken</span>
+                <span class="cwf-mega-card-sub">Wings, Thighs &amp; Whole</span>
+              </div>
+            </a>
+            <a href="https://cwfeats.com/turkey/" class="cwf-mega-card">
+              <div class="cwf-mega-card-icon"><i class="fa-solid fa-feather-pointed"></i></div>
+              <div class="cwf-mega-card-text">
+                <span class="cwf-mega-card-label">Turkey</span>
+                <span class="cwf-mega-card-sub">Smoked &amp; Roasted</span>
+              </div>
+            </a>
+            <a href="https://cwfeats.com/seafood/" class="cwf-mega-card">
+              <div class="cwf-mega-card-icon"><i class="fa-solid fa-shrimp"></i></div>
+              <div class="cwf-mega-card-text">
+                <span class="cwf-mega-card-label">Seafood</span>
+                <span class="cwf-mega-card-sub">Shrimp, Fish &amp; Grilled</span>
+              </div>
+            </a>
+            <a href="https://cwfeats.com/apps/" class="cwf-mega-card">
+              <div class="cwf-mega-card-icon"><i class="fa-solid fa-bowl-food"></i></div>
+              <div class="cwf-mega-card-text">
+                <span class="cwf-mega-card-label">Appetizers</span>
+                <span class="cwf-mega-card-sub">Dips, Sides &amp; Snacks</span>
+              </div>
+            </a>
+          </div>
+          <a href="https://cwfeats.com/all-recipes/" class="cwf-mega-cta">
+            See All Recipes <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      <div class="cwf-nav-item">
+        <a href="https://cwfeats.com/about/" class="cwf-nav-link">About</a>
+      </div>
+      <div class="cwf-nav-item">
+        <a href="https://cwfeats.com/contact/" class="cwf-nav-link">Contact</a>
+      </div>
+    </nav>
+    <!-- SEARCH BUTTON (desktop) -->
+    <button class="cwf-search-btn" onclick="document.getElementById('cwf-search-overlay').classList.add('active'); document.getElementById('cwf-search-field').focus();" aria-label="Search recipes">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+    <!-- HAMBURGER (label for checkbox, no JS) -->
+    <label class="cwf-burger" for="cwf-menu-state">
+      <span class="cwf-burger-line"></span>
+    </label>
+  </div>
+</header>
+<!-- ═══════════════ SEARCH OVERLAY ═══════════════ -->
+<div class="cwf-search-overlay" id="cwf-search-overlay" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="cwf-search-container">
+    <div class="cwf-search-header">
+      <div class="cwf-search-title">Search <span>Recipes</span></div>
+      <button class="cwf-search-close" onclick="document.getElementById('cwf-search-overlay').classList.remove('active')" aria-label="Close search">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <form class="cwf-search-form" action="https://cwfeats.com/" method="get">
+      <input type="text" name="s" class="cwf-search-input" id="cwf-search-field" placeholder="Try &quot;smoked brisket&quot; or &quot;grilled chicken&quot;..." autocomplete="off" required>
+      <button type="submit" class="cwf-search-submit">Search</button>
+    </form>
+    <div class="cwf-search-hint">Press <kbd>Esc</kbd> to close</div>
+  </div>
+</div>
+<!-- MOBILE OVERLAY (click to close) -->
+<label class="cwf-mobile-overlay" for="cwf-menu-state"></label>
+<!-- MOBILE SLIDE-OUT PANEL -->
+<div class="cwf-mobile-panel">
+  <!-- Panel header -->
+  <div class="cwf-mp-header">
+    <img src="https://cwfeats.com/wp-content/uploads/2022/12/cooking-w-fire-white-background-2.png" alt="CWF" class="cwf-mp-logo">
+    <label class="cwf-mp-close" for="cwf-menu-state"><i class="fa-solid fa-xmark"></i></label>
+  </div>
+  <!-- MOBILE SEARCH BAR -->
+  <div class="cwf-mp-search">
+    <form class="cwf-mp-search-form" action="https://cwfeats.com/" method="get">
+      <input type="text" name="s" class="cwf-mp-search-input" placeholder="Search recipes..." autocomplete="off" required>
+      <button type="submit" class="cwf-mp-search-submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+  </div>
+  <!-- Nav links -->
+  <nav class="cwf-mp-nav">
+    <a href="https://cwfeats.com" class="cwf-mp-link">
+      <i class="fa-solid fa-house"></i> Home
+    </a>
+    <!-- Recipes accordion -->
+    <div>
+      <input type="checkbox" id="cwf-mobile-recipes">
+      <label class="cwf-mp-recipes-header" for="cwf-mobile-recipes">
+        <span class="cwf-mp-recipes-left">
+          <i class="fa-solid fa-utensils"></i> Recipes
+        </span>
+        <span class="cwf-mp-recipes-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+      </label>
+      <div class="cwf-mp-recipes-grid">
+        <a href="https://cwfeats.com/beef-recipes/" class="cwf-mp-cat"><i class="fa-solid fa-fire-flame-curved"></i> Beef</a>
+        <a href="https://cwfeats.com/pork-4/" class="cwf-mp-cat"><i class="fa-solid fa-piggy-bank"></i> Pork</a>
+        <a href="https://cwfeats.com/chicken-recipes/" class="cwf-mp-cat"><i class="fa-solid fa-drumstick-bite"></i> Chicken</a>
+        <a href="https://cwfeats.com/turkey/" class="cwf-mp-cat"><i class="fa-solid fa-feather-pointed"></i> Turkey</a>
+        <a href="https://cwfeats.com/seafood/" class="cwf-mp-cat"><i class="fa-solid fa-shrimp"></i> Seafood</a>
+        <a href="https://cwfeats.com/apps/" class="cwf-mp-cat"><i class="fa-solid fa-bowl-food"></i> Appetizers</a>
+      </div>
+    </div>
+    <a href="https://cwfeats.com/about/" class="cwf-mp-link">
+      <i class="fa-solid fa-user"></i> About
+    </a>
+    <a href="https://cwfeats.com/contact/" class="cwf-mp-link">
+      <i class="fa-solid fa-envelope"></i> Contact
+    </a>
+  </nav>
+  <!-- See all recipes -->
+  <a href="https://cwfeats.com/all-recipes/" class="cwf-mp-see-all">
+    See All Recipes <i class="fa-solid fa-arrow-right"></i>
+  </a>
+  <!-- Panel footer -->
+  <div class="cwf-mp-footer">
+    <div class="cwf-mp-social">
+      <a href="https://linktr.ee/cooking_with_fire___" target="_blank"><i class="fa-solid fa-link"></i></a>
+      <a href="https://linktr.ee/cooking_with_fire___" target="_blank"><i class="fa-solid fa-screwdriver-wrench"></i></a>
+    </div>
+    <div class="cwf-mp-gear-label">
+      <a href="https://linktr.ee/cooking_with_fire___" target="_blank" style="color: #1a1a1a !important; text-decoration: none; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px;">
+        <i class="fa-solid fa-fire-flame-curved" style="color: #b91c1c; margin-right: 4px;"></i> My Favorite Equipment
+      </a>
+    </div>
+    <div class="cwf-mp-tagline">Cooking With Fire — Backyard Legends</div>
+  </div>
+</div>
+<!-- ═══════════════ HEADER END ═══════════════ -->
+
+<!-- Escape key closes search overlay -->
+<script>
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.getElementById('cwf-search-overlay').classList.remove('active');
+  }
+});
+</script>
+</body>
+</html>
