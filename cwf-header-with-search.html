@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CWF Eats - Header</title>
+<!-- ═══════════════ CWF HEADER — WordPress Custom HTML Block ═══════════════ -->
+<!-- Font Awesome (skip if your theme already loads it) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600&display=swap');
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #f5f5f5;
+/* Scoped reset — only applies inside the header, not the whole page */
+.cwf-header *,
+.cwf-header *::before,
+.cwf-header *::after,
+.cwf-mobile-panel *,
+.cwf-mobile-panel *::before,
+.cwf-mobile-panel *::after,
+.cwf-search-overlay *,
+.cwf-search-overlay *::before,
+.cwf-search-overlay *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 /* ══════════════════════════════════════
    MASTER MOBILE CHECKBOX (hidden)
@@ -22,6 +27,7 @@ body {
    HEADER BAR
    ══════════════════════════════════════ */
 .cwf-header {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: #fff;
   border-bottom: 3px solid #b91c1c;
   position: sticky;
@@ -775,8 +781,6 @@ body {
   .cwf-mobile-panel { display: none !important; }
 }
 </style>
-</head>
-<body>
 <!-- Hidden checkbox drives the entire mobile menu (no JS) -->
 <input type="checkbox" id="cwf-menu-state">
 <!-- ═══════════════ HEADER START ═══════════════ -->
@@ -949,5 +953,4 @@ document.addEventListener('keydown', function(e) {
   }
 });
 </script>
-</body>
-</html>
+<!-- ═══════════════ CWF HEADER END ═══════════════ -->
